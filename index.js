@@ -1,16 +1,12 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 
-// const router = require("./router/appData2");
 const router = require("./router");
 
 // database connection
 require('./mongo');
 
-// modals
-// require('./Modal/appData');
 
 const cors = require('cors');
 app.use(cors());
