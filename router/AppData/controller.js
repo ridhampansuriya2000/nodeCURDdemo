@@ -23,9 +23,7 @@ exports.getAppsData = async (req, res) => {
 exports.addAppData = async (req, res) => {
     try{
         const result = await AppData.create(req.body);
-        if(result){
-            res.send(result);
-        }
+             res.json({ data: result, status: "success" });
     }catch (e) {
         res.status(500).send(e);
     }
@@ -34,7 +32,7 @@ exports.addAppData = async (req, res) => {
 exports.updateData = async (req, res) => {
     try{
         id = req.params.id
-        const updateUser = await AppData.findByIdAndUpdate({_id : id}, req.body,{new : true});
+        const updateUser = await AppData.findByIdAndUpdate({_id : id}, req.body,{new : false});
         if(updateUser){
             res.status(200).send(updateUser);
         }
