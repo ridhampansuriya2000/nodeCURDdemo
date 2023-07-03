@@ -3,11 +3,10 @@ const appData = require("./controller");
 const appDataRouter = express.Router();
 const {tokenVerify} = require("../../Middleware")
 
-appDataRouter.use(tokenVerify).post('/add', appData.addAppData);
-appDataRouter.use(tokenVerify).get('/getList/:createdBy', appData.getAppsData);
-appDataRouter.use(tokenVerify).get('/get/:_id', appData.getAppData);
-appDataRouter.use(tokenVerify).post('/update/:id', appData.updateData);
-appDataRouter.use(tokenVerify).delete('/delete/:id', appData.deleteAppData);
-
+appDataRouter.route('/add').post(tokenVerify , appData.addAppData);
+appDataRouter.route('/getList/:createdBy').get(tokenVerify, appData.getAppsData);
+appDataRouter.route('/get/:_id').get(tokenVerify, appData.getAppData);
+appDataRouter.route('/update/:id').post(tokenVerify, appData.updateData);
+appDataRouter.route('/delete/:id').delete(tokenVerify, appData.deleteAppData);
 
 module.exports = appDataRouter;

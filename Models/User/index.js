@@ -35,6 +35,18 @@ const userSchema = new Schema({
     }, email: {
         type: String, required: true, unique: true, trim: true,
     },
+    imgURL: {
+        type: String,
+    },
+    imgId:{
+        type: String,
+    },
+    phoneNum:{
+        type: String, unique: true,
+        match: [/\d{10}/, "no should only have digits"],
+        minLength: [10, "no should have minimum 10 digits"],
+        maxLength: [10, "no should have maximum 10 digits"],
+    }
 }, {
     timestamps: true,
     methods: {
@@ -44,6 +56,19 @@ const userSchema = new Schema({
     statics: {
         checkIsExist
     }
+});
+
+
+userSchema.pre('findOneAndUpdate', function (next) {
+    const update = this.getUpdate();
+    const unknownFields = Object.keys(update).filter(
+        (field) => !userSchema.paths.hasOwnProperty(field) && field !== '$set' && field !== '$setOnInsert'
+    );
+    if (unknownFields.length > 0) {
+        const error = new Error(`Unknown field found: ${unknownFields.join(', ')}`);
+        return next(error);
+    }
+    next();
 });
 
 const User = model("User", userSchema);

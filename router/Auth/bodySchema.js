@@ -13,7 +13,20 @@ const loginBodySchema = Joi.object().keys({
     password: Joi.string().required().trim(),
 });
 
+const updateBodySchema = Joi.object().keys({
+    phoneNum: Joi.string()
+        .pattern(/^\d{10}$/)
+        .min(10)
+        .max(10)
+        .messages({
+            'string.pattern.base': 'Phone number must be 10 digits in length.',
+            'string.min': 'Phone number must be 10 digits in length.',
+            'string.max': 'Phone number must be 10 digits in length.',
+        }),
+});
+
 module.exports = {
     sighupBodySchema,
-    loginBodySchema
+    loginBodySchema,
+    updateBodySchema
 }
