@@ -7,6 +7,16 @@ const router = require("./router");
 // database connection
 require('./mongo');
 
+// swagger ------------------
+const swaggerUi = require('swagger-ui-express');
+const fs = require('fs');
+
+// Read the Swagger JSON file
+const swaggerFile = fs.readFileSync('swagger.json', 'utf8');
+const swaggerData = JSON.parse(swaggerFile);
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData));
 
 const cors = require('cors');
 app.use(cors());

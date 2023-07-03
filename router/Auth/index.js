@@ -21,7 +21,7 @@ const upload = multer({
 });
 
 authRouter.route('/login').post(login);
-authRouter.route('/signup').post(signup);
+authRouter.route('/signUp').post(signup);
 authRouter.route('/logout').get( tokenVerify,logout);
 authRouter.route('/user/me').get(tokenVerify,userMe);
 authRouter.route('/update/profiles').post(tokenVerify, upload.single('image'),updateUser);

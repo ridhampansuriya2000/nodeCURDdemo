@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CURD API",
+    "description": "API for user registration (signup)",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:8080/",
+      "description": "Local server"
+    },
+    {
+      "url": "http://localhost:8080/123",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/auth/signUp": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserSignupInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful registration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful registration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLoginSuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserSignupInput": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8
+          },
+          "confirmPassword": {
+            "type": "string",
+            "minLength": 8
+          }
+        },
+        "required": ["firstName", "lastName", "email, password, confirmPassword"]
+      },
+      "UserLoginInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8
+          }
+        },
+        "required": ["email, password"]
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "UserLoginSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+           "token": {
+            "type": "string"
+          },
+           "user": {
+            "type": "object",
+             "properties" : {
+               "_id" : {
+                 "type" : "string"
+               },
+               "firstName" : {
+                 "type" : "string"
+               },
+               "lastName" : {
+                 "type" : "string"
+               },
+               "email" : {
+                 "type" : "string"
+               },
+               "createdAt" : {
+                 "type" : "string"
+               },
+               "updatedAt" : {
+                 "type" : "string"
+               }
+             }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "AuthorizationHeader": {
+        "name": "Authorization",
+        "in": "header",
+        "description": "Token for authentication",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
