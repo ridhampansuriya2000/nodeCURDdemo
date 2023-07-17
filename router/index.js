@@ -16,7 +16,7 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 
 // Read the Swagger JSON file
-const swaggerFile = fs.readFileSync('swagger.json', 'utf8');
+const swaggerFile = fs.readFileSync('../swagger.json', 'utf8');
 const swaggerData = JSON.parse(swaggerFile);
 
 const options = {
