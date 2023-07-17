@@ -15,8 +15,14 @@ const fs = require('fs');
 const swaggerFile = fs.readFileSync('swagger.json', 'utf8');
 const swaggerData = JSON.parse(swaggerFile);
 
+const options = {
+    swaggerOptions: {
+        authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
+    }
+};
+
 // Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
 
 const cors = require('cors');
 app.use(cors());
