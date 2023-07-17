@@ -14,9 +14,11 @@ router.use('/product', appDataRouter);
 // swagger ------------------
 const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
+const path = require('path');
 
 // Read the Swagger JSON file
-const swaggerFile = fs.readFileSync('../swagger.json', 'utf8');
+const filePath = path.join("router", './../swagger.json');
+const swaggerFile = fs.readFileSync(filePath, 'utf8');
 const swaggerData = JSON.parse(swaggerFile);
 
 const options = {
@@ -26,6 +28,6 @@ const options = {
 };
 
 // Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
 
 module.exports = router;
