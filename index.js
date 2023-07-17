@@ -21,15 +21,15 @@ const options = {
     }
 };
 
-// Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
-
 const cors = require('cors');
 app.use(cors());
 
 // Middleware
 app.use(bodyParser.json());
 app.use(router);
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
