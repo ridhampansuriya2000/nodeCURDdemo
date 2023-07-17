@@ -7,19 +7,19 @@ const router = require("./router");
 // database connection
 require('./mongo');
 
-// swagger ------------------
-const swaggerUi = require('swagger-ui-express');
-const fs = require('fs');
-
-// Read the Swagger JSON file
-const swaggerFile = fs.readFileSync('swagger.json', 'utf8');
-const swaggerData = JSON.parse(swaggerFile);
-
-const options = {
-    swaggerOptions: {
-        authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
-    }
-};
+// // swagger ------------------
+// const swaggerUi = require('swagger-ui-express');
+// const fs = require('fs');
+//
+// // Read the Swagger JSON file
+// const swaggerFile = fs.readFileSync('swagger.json', 'utf8');
+// const swaggerData = JSON.parse(swaggerFile);
+//
+// const options = {
+//     swaggerOptions: {
+//         authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
+//     }
+// };
 
 const cors = require('cors');
 app.use(cors());
@@ -28,8 +28,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(router);
 
-// Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
+// // Serve Swagger UI
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
