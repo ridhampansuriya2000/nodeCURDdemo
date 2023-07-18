@@ -29,9 +29,8 @@ const options = {
 };
 
 const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
-swaggerUi.setup(specs, { customCssUrl: CSS_URL })
 
 // Serve Swagger UI
-router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options , { customCssUrl: CSS_URL }));
 
 module.exports = router;
