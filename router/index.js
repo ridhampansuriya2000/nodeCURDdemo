@@ -19,7 +19,7 @@ const path = require('path');
 
 // Read the Swagger JSON file
 const filePath = path.join("router", '../swagger.json');
-const swaggerFile = fs.readFileSync(filePath, 'utf8');
+const swaggerFile = fs.readFileSync(filePath,  { encoding: 'utf8' });
 const swaggerData = JSON.parse(swaggerFile);
 
 const options = {
