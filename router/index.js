@@ -1,8 +1,8 @@
 const express = require("express");
 const radheKrishna = require('./RadheKrishna');
 const authRouter = require("./Auth");
-const appDataRouter = require('./AppData');
 const router = express.Router();
+const appDataRouter = require('./AppData');
 
 /*----------initial HTML page---------*/
 router.use('/', radheKrishna);
@@ -16,8 +16,9 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const path = require('path');
 
+
 // Read the Swagger JSON file
-const filePath = path.join("router", './../swagger.json');
+const filePath = path.join("router", '../swagger.json');
 const swaggerFile = fs.readFileSync(filePath, 'utf8');
 const swaggerData = JSON.parse(swaggerFile);
 
