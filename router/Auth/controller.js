@@ -134,8 +134,8 @@ const updateUser = async (req,res) =>{
         }
         if(req.body) nerObj = {...nerObj, ...req.body}
         const newUserObj = await User.findByIdAndUpdate({_id : req.user._id}, nerObj, {new : true, runValidators: true } ).then(updatedDocument => {
-            console.log("newUserObj",newUserObj);
-            res.status(200).send({data : newUserObj });
+            console.log("newUserObj",updatedDocument);
+            res.status(200).send({data : updatedDocument });
         })
             .catch(error => {
                 res.status(500).send({error : error.message });

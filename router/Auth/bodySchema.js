@@ -14,6 +14,8 @@ const loginBodySchema = Joi.object().keys({
 });
 
 const updateBodySchema = Joi.object().keys({
+    firstName: Joi.string().trim(),
+    lastName: Joi.string().trim(),
     phoneNum: Joi.string()
         .pattern(/^\d{10}$/)
         .min(10)
