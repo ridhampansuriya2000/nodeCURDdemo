@@ -8,6 +8,14 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ridhampansuriya2000/nodeCURDdemo"
+  },
+  "bugs": {
+    "url": "https://github.com/ridhampansuriya2000/nodeCURDdemo/issues"
+  },
+  "homepage": "https://github.com/ridhampansuriya2000/nodeCURDdemo#readme",
   "keywords": [],
   "author": "",
   "license": "ISC",
