@@ -9,20 +9,11 @@ require('./mongo');
 
 // swagger ------------------
 const swaggerUi = require('swagger-ui-express');
-const fs = require('fs');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 
-// Read the Swagger JSON file
-const swaggerFile = fs.readFileSync('swagger.json', 'utf8');
-const swaggerData = JSON.parse(swaggerFile);
-
-const options = {
-    swaggerOptions: {
-        authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
-    }
-};
-
-// Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerData, options));
+// Serve Swagger UI at /api-docs endpoint
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const cors = require('cors');
 app.use(cors());

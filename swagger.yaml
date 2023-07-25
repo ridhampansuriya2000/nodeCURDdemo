@@ -1,0 +1,238 @@
+openapi: "3.0.0"
+info:
+  title: "nodeCURDdemo"
+  version: "1.0.0"
+paths:
+  security:
+    - bearerAuth: []  # Apply the "bearerAuth" security scheme to all API requests under the "product" section
+
+  components:
+    securitySchemes:
+      bearerAuth:  # Define the "bearerAuth" security scheme
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+
+  securityDefinitions:
+    bearerAuth:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+  /:
+    get:
+      summary: "Initial"
+      tags:
+        - "Initial"
+      responses:
+        '200':
+          description: "Success"
+  /auth/login:
+    post:
+      summary: "Login"
+      tags:
+        - "auth"
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: "Success"
+  /auth/signUp:
+    post:
+      summary: "Sign Up"
+      tags:
+        - "auth"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                confirmPassword:
+                  type: string
+              required:
+                - firstName
+                - lastName
+                - email
+                - password
+                - confirmPassword
+      responses:
+        '200':
+          description: "Success"
+  /auth/logout:
+    get:
+      summary: "Logout"
+      tags:
+        - "auth"
+      responses:
+        '200':
+          description: "Success"
+  /auth/user/me:
+    get:
+      summary: "Get User Details"
+      tags:
+        - "auth"
+      responses:
+        '200':
+          description: "Success"
+  /auth/update/profiles:
+    post:
+      summary: "Update User Profiles"
+      tags:
+        - "product"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                phoneNum:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+              required:
+                - phoneNum
+                - image
+                - firstName
+                - lastName
+                - email
+      responses:
+        '200':
+          description: "Success"
+  /product/add:
+    post:
+      summary: "Add Product"
+      tags:
+        - "product"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                createdBy:
+                  type: string
+                name:
+                  type: string
+                email:
+                  type: string
+                productName:
+                  type: string
+                mobileNumber:
+                  type: integer
+                isAdmin:
+                  type: boolean
+              required:
+                - name
+                - email
+                - productName
+                - mobileNumber
+                - isAdmin
+      responses:
+        '200':
+          description: "Success"
+  /product/getList/{createdBy}:
+    get:
+      summary: "Get Product List"
+      tags:
+        - "product"
+      parameters:
+        - in: path
+          name: createdBy
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Success"
+  /product/get/{_id}:
+    get:
+      summary: "Get Product by ID"
+      tags:
+        - "product"
+      parameters:
+        - in: path
+          name: _id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Success"
+  /product/update/{id}:
+    post:
+      summary: "Update Product"
+      tags:
+        - "product"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                productName:
+                  type: string
+                mobileNumber:
+                  type: integer
+                isAdmin:
+                  type: boolean
+              required:
+                - name
+                - email
+                - productName
+                - mobileNumber
+                - isAdmin
+      responses:
+        '200':
+          description: "Success"
+  /product/delete/{id}:
+    delete:
+      summary: "Delete Product"
+      tags:
+        - "product"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Success"
