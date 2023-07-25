@@ -1,36 +1,51 @@
-openapi: "3.0.0"
+openapi: 3.0.0
 info:
-  title: "nodeCURDdemo"
-  version: "1.0.0"
+  title: CURD API
+  description: API for login registration and CRUD opration base on login user
+  version: 1.0.0
+basePath: "/"
+schemes:
+  - http
+  - https
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+security:
+  - Bearer: []
+servers:
+  - url: http://localhost:8080/
+    description: Local server
+  - url: https://node-curd-demo.vercel.app/
+    description: Live server
 paths:
   security:
-    - bearerAuth: []  # Apply the "bearerAuth" security scheme to all API requests under the "product" section
-
+    - bearerAuth: []
   components:
     securitySchemes:
-      bearerAuth:  # Define the "bearerAuth" security scheme
+      bearerAuth:
         type: http
         scheme: bearer
         bearerFormat: JWT
-
   securityDefinitions:
     bearerAuth:
-      type: "apiKey"
-      name: "Authorization"
-      in: "header"
-  /:
+      type: apiKey
+      name: Authorization
+      in: header
+  "/":
     get:
-      summary: "Initial"
+      summary: Initial
       tags:
-        - "Initial"
+        - Initial
       responses:
         '200':
-          description: "Success"
-  /auth/login:
+          description: Success
+  "/auth/login":
     post:
-      summary: "Login"
+      summary: Login
       tags:
-        - "auth"
+        - auth
       security:
         - bearerAuth: []
       requestBody:
@@ -48,12 +63,12 @@ paths:
                 - password
       responses:
         '200':
-          description: "Success"
-  /auth/signUp:
+          description: Success
+  "/auth/signUp":
     post:
-      summary: "Sign Up"
+      summary: Sign Up
       tags:
-        - "auth"
+        - auth
       requestBody:
         content:
           application/json:
@@ -78,28 +93,28 @@ paths:
                 - confirmPassword
       responses:
         '200':
-          description: "Success"
-  /auth/logout:
+          description: Success
+  "/auth/logout":
     get:
-      summary: "Logout"
+      summary: Logout
       tags:
-        - "auth"
+        - auth
       responses:
         '200':
-          description: "Success"
-  /auth/user/me:
+          description: Success
+  "/auth/user/me":
     get:
-      summary: "Get User Details"
+      summary: Get User Details
       tags:
-        - "auth"
+        - auth
       responses:
         '200':
-          description: "Success"
-  /auth/update/profiles:
+          description: Success
+  "/auth/update/profiles":
     post:
-      summary: "Update User Profiles"
+      summary: Update User Profiles
       tags:
-        - "product"
+        - product
       requestBody:
         content:
           multipart/form-data:
@@ -125,12 +140,12 @@ paths:
                 - email
       responses:
         '200':
-          description: "Success"
-  /product/add:
+          description: Success
+  "/product/add":
     post:
-      summary: "Add Product"
+      summary: Add Product
       tags:
-        - "product"
+        - product
       requestBody:
         content:
           application/json:
@@ -157,12 +172,12 @@ paths:
                 - isAdmin
       responses:
         '200':
-          description: "Success"
-  /product/getList/{createdBy}:
+          description: Success
+  "/product/getList/{createdBy}":
     get:
-      summary: "Get Product List"
+      summary: Get Product List
       tags:
-        - "product"
+        - product
       parameters:
         - in: path
           name: createdBy
@@ -171,12 +186,12 @@ paths:
             type: string
       responses:
         '200':
-          description: "Success"
-  /product/get/{_id}:
+          description: Success
+  "/product/get/{_id}":
     get:
-      summary: "Get Product by ID"
+      summary: Get Product by ID
       tags:
-        - "product"
+        - product
       parameters:
         - in: path
           name: _id
@@ -185,12 +200,12 @@ paths:
             type: string
       responses:
         '200':
-          description: "Success"
-  /product/update/{id}:
+          description: Success
+  "/product/update/{id}":
     post:
-      summary: "Update Product"
+      summary: Update Product
       tags:
-        - "product"
+        - product
       parameters:
         - in: path
           name: id
@@ -221,12 +236,12 @@ paths:
                 - isAdmin
       responses:
         '200':
-          description: "Success"
-  /product/delete/{id}:
+          description: Success
+  "/product/delete/{id}":
     delete:
-      summary: "Delete Product"
+      summary: Delete Product
       tags:
-        - "product"
+        - product
       parameters:
         - in: path
           name: id
@@ -235,4 +250,4 @@ paths:
             type: string
       responses:
         '200':
-          description: "Success"
+          description: Success
