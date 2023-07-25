@@ -28,8 +28,8 @@
       "description": "Local server"
     },
     {
-      "url": "http://localhost:8080/123",
-      "description": "Local server"
+      "url": "https://node-curd-demo.vercel.app/",
+      "description": "Live server"
     }
   ],
   "paths": {
