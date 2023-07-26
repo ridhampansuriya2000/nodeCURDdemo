@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "CURD API",
-    "description": "API for user registration (signup)",
+    "description": "API for login registration and CRUD opration base on login user",
     "version": "1.0.0"
   },
   "basePath": "/",
@@ -17,11 +17,6 @@
       "in": "header"
     }
   },
-  "security": [
-    {
-      "Bearer": []
-    }
-  ],
   "servers": [
     {
       "url": "http://localhost:8080/",
@@ -32,28 +27,16 @@
       "description": "Live server"
     }
   ],
-  "paths": {
-    "security": [
-      {
-        "bearerAuth": []
-      }
-    ],
-    "components": {
-      "securitySchemes": {
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
-        }
-      }
-    },
-    "securityDefinitions": {
+  "components": {
+    "securitySchemes": {
       "bearerAuth": {
-        "type": "apiKey",
-        "name": "Authorization",
-        "in": "header"
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
-    },
+    }
+  },
+  "paths": {
     "/": {
       "get": {
         "summary": "Initial",
@@ -73,11 +56,6 @@
         "tags": [
           "auth"
         ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -85,10 +63,12 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ridhamtesting1@yopmail.com"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Ridham@1234"
                   }
                 },
                 "required": [
@@ -119,19 +99,24 @@
                 "type": "object",
                 "properties": {
                   "firstName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ridham"
                   },
                   "lastName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "pansuriya"
                   },
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ridhampansuriya@yopmail.com"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Tester@1234"
                   },
                   "confirmPassword": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Tester@1234"
                   }
                 },
                 "required": [
@@ -154,6 +139,11 @@
     },
     "/auth/logout": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Logout",
         "tags": [
           "auth"
@@ -167,6 +157,11 @@
     },
     "/auth/user/me": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Get User Details",
         "tags": [
           "auth"
@@ -180,9 +175,14 @@
     },
     "/auth/update/profiles": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Update User Profiles",
         "tags": [
-          "product"
+          "auth"
         ],
         "requestBody": {
           "content": {
@@ -191,20 +191,24 @@
                 "type": "object",
                 "properties": {
                   "phoneNum": {
-                    "type": "string"
+                    "type": "string",
+                    "example": 75758123459
                   },
                   "image": {
                     "type": "string",
                     "format": "binary"
                   },
                   "firstName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ridham"
                   },
                   "lastName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "pansuriya"
                   },
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "ridhampansuriya@yopmail.com"
                   }
                 },
                 "required": [
@@ -227,6 +231,11 @@
     },
     "/product/add": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Add Product",
         "tags": [
           "product"
@@ -276,6 +285,11 @@
     },
     "/product/getList/{createdBy}": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Get Product List",
         "tags": [
           "product"
@@ -284,6 +298,7 @@
           {
             "in": "path",
             "name": "createdBy",
+            "example": "64c02a32b72c460e73be6520",
             "required": true,
             "schema": {
               "type": "string"
@@ -299,6 +314,11 @@
     },
     "/product/get/{_id}": {
       "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Get Product by ID",
         "tags": [
           "product"
@@ -322,6 +342,11 @@
     },
     "/product/update/{id}": {
       "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Update Product",
         "tags": [
           "product"
@@ -378,6 +403,11 @@
     },
     "/product/delete/{id}": {
       "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Delete Product",
         "tags": [
           "product"
