@@ -12,27 +12,37 @@ securityDefinitions:
     type: apiKey
     name: Authorization
     in: header
-security:
-  - Bearer: []
 servers:
   - url: http://localhost:8080/
     description: Local server
   - url: https://node-curd-demo.vercel.app/
     description: Live server
-paths:
-  security:
-    - bearerAuth: []
-  components:
-    securitySchemes:
-      bearerAuth:
-        type: http
-        scheme: bearer
-        bearerFormat: JWT
-  securityDefinitions:
+components:
+  securitySchemes:
+#    ApiToken:
+#      type: apiKey
+#      in: header
+#      name: Autherization
+
+#    ApiTokenss:
+#
+#      type: http
+#      scheme: basic
+#    ApiTokenss:        # arbitrary name for the security scheme
+#
+#      type: http
+#      scheme: bearer
+#
+#    ApiKey:        # arbitrary name for the security scheme
+#      type: apiKey
+#      in: header       # can be "header", "query" or "cookie"
+#      name: apikey
+
     bearerAuth:
-      type: apiKey
-      name: Authorization
-      in: header
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
   "/":
     get:
       summary: Initial
@@ -46,8 +56,6 @@ paths:
       summary: Login
       tags:
         - auth
-      security:
-        - bearerAuth: []
       requestBody:
         content:
           application/json:
@@ -56,8 +64,10 @@ paths:
               properties:
                 email:
                   type: string
+                  example: ridhamtesting1@yopmail.com
                 password:
                   type: string
+                  example: Ridham@1234
               required:
                 - email
                 - password
@@ -77,14 +87,19 @@ paths:
               properties:
                 firstName:
                   type: string
+                  example: ridham
                 lastName:
                   type: string
+                  example: pansuriya
                 email:
                   type: string
+                  example: ridhampansuriya@yopmail.com
                 password:
                   type: string
+                  example: Tester@1234
                 confirmPassword:
                   type: string
+                  example: Tester@1234
               required:
                 - firstName
                 - lastName
@@ -96,6 +111,8 @@ paths:
           description: Success
   "/auth/logout":
     get:
+      security:
+        - bearerAuth: []
       summary: Logout
       tags:
         - auth
@@ -104,6 +121,8 @@ paths:
           description: Success
   "/auth/user/me":
     get:
+      security:
+        - bearerAuth: []
       summary: Get User Details
       tags:
         - auth
@@ -112,9 +131,11 @@ paths:
           description: Success
   "/auth/update/profiles":
     post:
+      security:
+        - bearerAuth: []
       summary: Update User Profiles
       tags:
-        - product
+        - auth
       requestBody:
         content:
           multipart/form-data:
@@ -123,15 +144,19 @@ paths:
               properties:
                 phoneNum:
                   type: string
+                  example: 75758123459
                 image:
                   type: string
                   format: binary
                 firstName:
                   type: string
+                  example: ridham
                 lastName:
                   type: string
+                  example: pansuriya
                 email:
                   type: string
+                  example: ridhampansuriya@yopmail.com
               required:
                 - phoneNum
                 - image
@@ -143,6 +168,8 @@ paths:
           description: Success
   "/product/add":
     post:
+      security:
+        - ApiTokenss: []
       summary: Add Product
       tags:
         - product
@@ -175,12 +202,15 @@ paths:
           description: Success
   "/product/getList/{createdBy}":
     get:
+      security:
+        - bearerAuth: []
       summary: Get Product List
       tags:
         - product
       parameters:
         - in: path
           name: createdBy
+          example: 64c02a32b72c460e73be6520
           required: true
           schema:
             type: string
@@ -189,6 +219,8 @@ paths:
           description: Success
   "/product/get/{_id}":
     get:
+      security:
+        - bearerAuth: []
       summary: Get Product by ID
       tags:
         - product
@@ -203,6 +235,8 @@ paths:
           description: Success
   "/product/update/{id}":
     post:
+      security:
+        - bearerAuth: []
       summary: Update Product
       tags:
         - product
@@ -239,6 +273,8 @@ paths:
           description: Success
   "/product/delete/{id}":
     delete:
+      security:
+        - bearerAuth: []
       summary: Delete Product
       tags:
         - product
