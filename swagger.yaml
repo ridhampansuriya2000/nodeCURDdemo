@@ -169,7 +169,7 @@ paths:
   "/product/add":
     post:
       security:
-        - ApiTokenss: []
+        - bearerAuth: []
       summary: Add Product
       tags:
         - product
