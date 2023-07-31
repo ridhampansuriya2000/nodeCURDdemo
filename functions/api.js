@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
+const serverless = require('serverless-http');
 
-const router = require("./router");
+const router = require("./../router");
 
 // database connection
 require('./mongo');
@@ -10,7 +11,7 @@ require('./mongo');
 // -------------------swagger ------------------//
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
+const swaggerDocument = YAML.load('./../swagger.yaml');
 
 //--------------------Customization-------------------//
 const CustomizationOption = {
@@ -36,6 +37,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "*");
     next();
 });
+module.exports.handler = serverless(app);
 
 const port = 8080;
 app.listen(port, ()=>{
